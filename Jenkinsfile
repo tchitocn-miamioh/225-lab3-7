@@ -5,7 +5,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'
         DOCKER_IMAGE = 'cithit/tchitocn'                                                                    //<------your MiamiID
         IMAGE_TAG = "build-${BUILD_NUMBER}"
-        GITHUB_URL = 'https://github.com/tchitocn-miamioh/225-lab3-7.git'                                    //<------your MiamiID
+        GITHUB_URL = 'https://github.com/tchitocn-maimioh/225-lab3-7.git'                                    //<------your MiamiID
         KUBECONFIG = credentials('tchitocn-225')                                                         //<------your MiamiID
     }
 
@@ -54,6 +54,7 @@ pipeline {
                     // Update deployment-dev.yaml to use the new image tag
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
                     sh "kubectl apply -f deployment-dev.yaml"
+                    sh "kubectl rollout status deployment/dev-deployment --timeout=120s"
                 }
             }
         }
@@ -76,7 +77,7 @@ pipeline {
                 sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
                 sh '''
                     docker run --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
-                    -e BURP_START_URL=http://http://10.48.229.164 \
+                    -e BURP_START_URL=http://10.48.229.164 \
                     -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
                     public.ecr.aws/portswigger/dastardly:latest
                 '''
@@ -119,4 +120,3 @@ pipeline {
         }
     }
 }
-
