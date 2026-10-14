@@ -5,7 +5,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'
         DOCKER_IMAGE = 'cithit/tchitocn'                                                                    //<------your MiamiID
         IMAGE_TAG = "build-${BUILD_NUMBER}"
-        GITHUB_URL = 'https://github.com/tchitocn-miamioh/225-lab3-7.git''                                    //<------your MiamiID
+        GITHUB_URL = 'https://github.com/tchitocn-miamioh/225-lab3-7.git'                                    //<------your MiamiID
         KUBECONFIG = credentials('tchitocn-225')                                                         //<------your MiamiID
     }
 
